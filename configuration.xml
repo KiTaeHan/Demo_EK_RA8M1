@@ -371,6 +371,8 @@
     </config>
   </raModuleConfiguration>
   <raPinConfiguration>
+    <symbolicName propertyId="p509.symbolic_name" value="MIC_INT"/>
+    <symbolicName propertyId="p600.symbolic_name" value="LED1"/>
     <pincfg active="true" name="R7FA8M1AHECBD.pincfg" selected="true" symbol="g_bsp_pin_cfg">
       <configSetting altId="adc0.an004.p007" configurationId="adc0.an004"/>
       <configSetting altId="adc0.mode.custom.free" configurationId="adc0.mode"/>
@@ -383,6 +385,10 @@
       <configSetting altId="jtag_fslash_swd.tms.p210" configurationId="jtag_fslash_swd.tms"/>
       <configSetting altId="p007.adc0.an004" configurationId="p007"/>
       <configSetting altId="p007.gpio_mode.gpio_mode_an" configurationId="p007.gpio_mode"/>
+      <configSetting altId="p112.sci0.txd0" configurationId="p112"/>
+      <configSetting altId="p112.gpio_mode.gpio_mode_peripheral" configurationId="p112.gpio_mode"/>
+      <configSetting altId="p113.sci0.rxd0" configurationId="p113"/>
+      <configSetting altId="p113.gpio_mode.gpio_mode_peripheral" configurationId="p113.gpio_mode"/>
       <configSetting altId="p208.jtag_fslash_swd.tdi" configurationId="p208"/>
       <configSetting altId="p208.gpio_mode.gpio_mode_peripheral" configurationId="p208.gpio_mode"/>
       <configSetting altId="p209.jtag_fslash_swd.tdo" configurationId="p209"/>
@@ -394,6 +400,11 @@
       <configSetting altId="p509.irq2.irq2" configurationId="p509"/>
       <configSetting altId="p509.gpio_irq.gpio_irq_enabled" configurationId="p509.gpio_irq"/>
       <configSetting altId="p509.gpio_mode.gpio_mode_irq" configurationId="p509.gpio_mode"/>
+      <configSetting altId="p600.output.low" configurationId="p600"/>
+      <configSetting altId="p600.gpio_mode.gpio_mode_out.low" configurationId="p600.gpio_mode"/>
+      <configSetting altId="sci0.mode.asynchronousuart.free" configurationId="sci0.mode"/>
+      <configSetting altId="sci0.rxd0.p113" configurationId="sci0.rxd0"/>
+      <configSetting altId="sci0.txd0.p112" configurationId="sci0.txd0"/>
     </pincfg>
   </raPinConfiguration>
 </raConfiguration>

@@ -168,8 +168,8 @@ FSP Configuration
       P105 L3 - - - - Disabled - - "GPT1: GTIOC1A; IRQ0: IRQ0; OSPI: OM_ECSINT1; SPI1: SSLB2; ULPT1: ULPTO1_A-DS" - None - - 
       P106 K2 - - - - Disabled - - "AGT0: AGTOB0; GPT8: GTIOC8B; GPT_OPS: GTOWLO; OSPI: OM_RESET; SPI1: SSLB3; ULPT1: ULPTEE1_A-DS" - None - - 
       P107 K1 - - - - Disabled - - "AGT0: AGTOA0; GPT8: GTIOC8A; GPT_OPS: GTOWUP; OSPI: OM_CS0" - None - - 
-      P112 B2 - - - - Disabled - - "BUS: A0; BUS: BC0; ETHER_MII: ET0_CRS; ETHER_RMII: RMII0_CRS_DV; GPT3: GTIOC3B; SCI0: TXD0; SDRAM: A0; SDRAM: DQM1; SPI0: SSLA2; SSIE0: SSISCK0; ULPT0: ULPTOB0_A-DS" - None - - 
-      P113 C3 - - - - Disabled - - "BUS: CS1#; ETHER_MII: ET0_EXOUT; ETHER_RMII: ET0_EXOUT; GPT2: GTIOC2A; SCI0: RXD0; SDRAM: CKE; SPI0: SSLA1; SSIE0: SSIWS0; ULPT0: ULPTOA0_A-DS" - None - - 
+      P112 B2 SCI0_TXD0 - L - "Peripheral mode" - - "BUS: A0; BUS: BC0; ETHER_MII: ET0_CRS; ETHER_RMII: RMII0_CRS_DV; GPT3: GTIOC3B; SCI0: TXD0; SDRAM: A0; SDRAM: DQM1; SPI0: SSLA2; SSIE0: SSISCK0; ULPT0: ULPTOB0_A-DS" - O - - 
+      P113 C3 SCI0_RXD0 - L - "Peripheral mode" - - "BUS: CS1#; ETHER_MII: ET0_EXOUT; ETHER_RMII: ET0_EXOUT; GPT2: GTIOC2A; SCI0: RXD0; SDRAM: CKE; SPI0: SSLA1; SSIE0: SSIWS0; ULPT0: ULPTOA0_A-DS" - I - - 
       P114 C2 - - - - Disabled - - "BUS: CS0#; ETHER_MII: ET0_LINKSTA; ETHER_RMII: ET0_LINKSTA; GPT2: GTIOC2B; SCI0: CTS_RTS0; SCI0: DE0; SDRAM: WE; SPI0: SSLA0; SSIE0: SSIRXD0" - None - - 
       P115 D3 - - - - Disabled - - "ETHER_MII: ET0_WOL; ETHER_RMII: ET0_WOL; GPT5: GTIOC5A; SCI0: CTS0; SDRAM: SDCS; SPI0: MOSI0; SSIE0: SSITXD0" - None - - 
       P200 B8 - - - - Disabled - - "IRQ: NMI" - None - - 
@@ -227,14 +227,14 @@ FSP Configuration
       P506 N6 - - - - Disabled - - "BUS: D28; SDHI1: SD1DAT5; SDRAM: DQ28" - None - - 
       P507 L7 - - - - Disabled - - "BUS: D29; SDHI1: SD1DAT6; SDRAM: DQ29" - None - - 
       P508 M7 - - - - Disabled - - "BUS: D30; IRQ1: IRQ1; SDHI1: SD1DAT7; SDRAM: DQ30" - None - - 
-      P509 L8 IRQ2_IRQ2 - - IRQ2 "IRQ mode" - - "BUS: D31; IRQ2: IRQ2; SDRAM: DQ31; ULPT1: ULPTEVI1" - IO - - 
+      P509 L8 IRQ2_IRQ2 MIC_INT - IRQ2 "IRQ mode" - - "BUS: D31; IRQ2: IRQ2; SDRAM: DQ31; ULPT1: ULPTEVI1" - IO - - 
       P510 N7 - - - - Disabled - - "BUS: BC3; BUS: WR3; IRQ3: IRQ3; ULPT0: ULPTEVI0" - None - - 
       P511 K9 - - - - Disabled - - "CANFD1: CRX1; GPT0: GTIOC0B; IIC1: SDA1; IRQ15: IRQ15" - None - - 
       P512 N13 - - - - Disabled - - "CANFD1: CTX1; GPT0: GTIOC0A; IIC1: SCL1; IRQ14: IRQ14" - None - - 
       P513 P13 - - - - Disabled - - "ACMPHS1: IVCMP1_0; ADC0: AN016; ADC1: AN116; CEU: VIO_FLD" - None - - 
       P514 P14 - - - - Disabled - - - - None - - 
       P515 R14 - - - - Disabled - - - - None - - 
-      P600 K3 - - - - Disabled - - "CAC: CACREF; GPT6: GTIOC6B; OSPI: OM_RSTO1; ULPT1: ULPTEVI1_A-DS" - None - - 
+      P600 K3 GPIO LED1 L - "Output mode (Initial Low)" - - "CAC: CACREF; GPT6: GTIOC6B; OSPI: OM_RSTO1; ULPT1: ULPTEVI1_A-DS" - IO - - 
       P601 K4 - - - - Disabled - - "BUS: D0; GPT6: GTIOC6A; OSPI: OM_WP1; RTC: RTCOUT; SCI0: DE0; SCI0: SCK0; SDRAM: DQ0; ULPT0: ULPTEVI0" - None - - 
       P602 L4 - - - - Disabled - - "BUS: D1; GPT7: GTIOC7B; SCI0: RXD0; SDRAM: DQ1; ULPT0: ULPTEE0" - None - - 
       P603 M4 - - - - Disabled - - "BUS: D2; GPT7: GTIOC7A; SCI0: TXD0; SDRAM: DQ2; ULPT0: ULPTO0" - None - - 
