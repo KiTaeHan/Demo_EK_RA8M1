@@ -42,7 +42,7 @@
     <node id="board.clock.pll2r.display" option="board.clock.pll2r.display.value"/>
     <node id="board.clock.clock.source" option="board.clock.clock.source.pll1p"/>
     <node id="board.clock.clkout.source" option="board.clock.clkout.source.disabled"/>
-    <node id="board.clock.sciclk.source" option="board.clock.sciclk.source.disabled"/>
+    <node id="board.clock.sciclk.source" option="board.clock.sciclk.source.pll1q"/>
     <node id="board.clock.spiclk.source" option="board.clock.spiclk.source.disabled"/>
     <node id="board.clock.canfdclk.source" option="board.clock.canfdclk.source.disabled"/>
     <node id="board.clock.i3cclk.source" option="board.clock.i3cclk.source.disabled"/>
@@ -97,8 +97,8 @@
       <configSetting altId="jtag_fslash_swd.tdo.p209" configurationId="jtag_fslash_swd.tdo"/>
       <configSetting altId="jtag_fslash_swd.tms.p210" configurationId="jtag_fslash_swd.tms"/>
       <configSetting altId="p600.output.low" configurationId="p600"/>
-      <configSetting altId="sci0.rxd0.p113" configurationId="sci0.rxd0"/>
-      <configSetting altId="sci0.txd0.p112" configurationId="sci0.txd0"/>
+      <configSetting altId="sci0.rxd0.p602" configurationId="sci0.rxd0" isUsedByDriver="true"/>
+      <configSetting altId="sci0.txd0.p603" configurationId="sci0.txd0" isUsedByDriver="true"/>
     </pincfg>
   </raPinConfiguration>
 </raConfiguration>

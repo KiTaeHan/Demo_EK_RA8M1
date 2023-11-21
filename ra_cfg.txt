@@ -114,7 +114,7 @@ FSP Configuration
     PLL2R Div /2
     Clock Src: PLL1P
     CLKOUT Disabled
-    SCICLK Disabled
+    SCICLK Src: PLL1Q
     SPICLK Disabled
     CANFDCLK Disabled
     I3CCLK Disabled
@@ -168,8 +168,8 @@ FSP Configuration
       P105 L3 - - - - Disabled - - "GPT1: GTIOC1A; IRQ0: IRQ0; OSPI: OM_ECSINT1; SPI1: SSLB2; ULPT1: ULPTO1_A-DS" - None - - 
       P106 K2 - - - - Disabled - - "AGT0: AGTOB0; GPT8: GTIOC8B; GPT_OPS: GTOWLO; OSPI: OM_RESET; SPI1: SSLB3; ULPT1: ULPTEE1_A-DS" - None - - 
       P107 K1 - - - - Disabled - - "AGT0: AGTOA0; GPT8: GTIOC8A; GPT_OPS: GTOWUP; OSPI: OM_CS0" - None - - 
-      P112 B2 SCI0_TXD0 - L - "Peripheral mode" - - "BUS: A0; BUS: BC0; ETHER_MII: ET0_CRS; ETHER_RMII: RMII0_CRS_DV; GPT3: GTIOC3B; SCI0: TXD0; SDRAM: A0; SDRAM: DQM1; SPI0: SSLA2; SSIE0: SSISCK0; ULPT0: ULPTOB0_A-DS" - O - - 
-      P113 C3 SCI0_RXD0 - L - "Peripheral mode" - - "BUS: CS1#; ETHER_MII: ET0_EXOUT; ETHER_RMII: ET0_EXOUT; GPT2: GTIOC2A; SCI0: RXD0; SDRAM: CKE; SPI0: SSLA1; SSIE0: SSIWS0; ULPT0: ULPTOA0_A-DS" - I - - 
+      P112 B2 - - - - Disabled - - "BUS: A0; BUS: BC0; ETHER_MII: ET0_CRS; ETHER_RMII: RMII0_CRS_DV; GPT3: GTIOC3B; SCI0: TXD0; SDRAM: A0; SDRAM: DQM1; SPI0: SSLA2; SSIE0: SSISCK0; ULPT0: ULPTOB0_A-DS" - None - - 
+      P113 C3 - - - - Disabled - - "BUS: CS1#; ETHER_MII: ET0_EXOUT; ETHER_RMII: ET0_EXOUT; GPT2: GTIOC2A; SCI0: RXD0; SDRAM: CKE; SPI0: SSLA1; SSIE0: SSIWS0; ULPT0: ULPTOA0_A-DS" - None - - 
       P114 C2 - - - - Disabled - - "BUS: CS0#; ETHER_MII: ET0_LINKSTA; ETHER_RMII: ET0_LINKSTA; GPT2: GTIOC2B; SCI0: CTS_RTS0; SCI0: DE0; SDRAM: WE; SPI0: SSLA0; SSIE0: SSIRXD0" - None - - 
       P115 D3 - - - - Disabled - - "ETHER_MII: ET0_WOL; ETHER_RMII: ET0_WOL; GPT5: GTIOC5A; SCI0: CTS0; SDRAM: SDCS; SPI0: MOSI0; SSIE0: SSITXD0" - None - - 
       P200 B8 - - - - Disabled - - "IRQ: NMI" - None - - 
@@ -236,8 +236,8 @@ FSP Configuration
       P515 R14 - - - - Disabled - - - - None - - 
       P600 K3 GPIO LED1 L - "Output mode (Initial Low)" - - "CAC: CACREF; GPT6: GTIOC6B; OSPI: OM_RSTO1; ULPT1: ULPTEVI1_A-DS" - IO - - 
       P601 K4 - - - - Disabled - - "BUS: D0; GPT6: GTIOC6A; OSPI: OM_WP1; RTC: RTCOUT; SCI0: DE0; SCI0: SCK0; SDRAM: DQ0; ULPT0: ULPTEVI0" - None - - 
-      P602 L4 - - - - Disabled - - "BUS: D1; GPT7: GTIOC7B; SCI0: RXD0; SDRAM: DQ1; ULPT0: ULPTEE0" - None - - 
-      P603 M4 - - - - Disabled - - "BUS: D2; GPT7: GTIOC7A; SCI0: TXD0; SDRAM: DQ2; ULPT0: ULPTO0" - None - - 
+      P602 L4 SCI0_RXD0 - L - "Peripheral mode" - - "BUS: D1; GPT7: GTIOC7B; SCI0: RXD0; SDRAM: DQ1; ULPT0: ULPTEE0" - I - - 
+      P603 M4 SCI0_TXD0 - L - "Peripheral mode" - - "BUS: D2; GPT7: GTIOC7A; SCI0: TXD0; SDRAM: DQ2; ULPT0: ULPTO0" - O - - 
       P604 N4 - - - - Disabled - - "BUS: D3; GPT8: GTIOC8B; SCI0: CTS_RTS0; SCI0: DE0; SDRAM: DQ3" - None - - 
       P605 K5 - - - - Disabled - - "BUS: D4; GPT8: GTIOC8A; SCI0: CTS0; SDRAM: DQ4" - None - - 
       P606 M5 - - - - Disabled - - "BUS: D5; SDRAM: DQ5" - None - - 
@@ -382,6 +382,12 @@ FSP Configuration
   Module "External IRQ (r_icu)"
     Parameter Checking: Default (BSP)
     
+  Module "UART (r_sci_b_uart)"
+    Parameter Checking: Default (BSP)
+    FIFO Support: Disable
+    DTC Support: Disable
+    Flow Control Support: Disable
+    
   Azure RTOS ThreadX
     General: Custom tx_user.h: 
     General: Error Checking: Enabled
@@ -428,6 +434,32 @@ FSP Configuration
       Pin Configuration Name: g_bsp_pin_cfg
       
     Instance "Azure RTOS ThreadX Port (rm_threadx_port)"
+    Instance "log_uart0 UART (r_sci_b_uart)"
+      General: Name: log_uart0
+      General: Channel: 0
+      General: Data Bits: 8bits
+      General: Parity: None
+      General: Stop Bits: 1bit
+      Baud: Baud Rate: 115200
+      Baud: Baud Rate Modulation: Disabled
+      Baud: Max Error (%): 5
+      Flow Control: CTS/RTS Selection: Hardware RTS
+      Flow Control: Software RTS Port: Disabled
+      Flow Control: Software RTS Pin: Disabled
+      Extra: Clock Source: Internal Clock
+      Extra: Start bit detection: Falling Edge
+      Extra: Noise Filter: Disable
+      Extra: Receive FIFO Trigger Level: Max
+      Extra: RS-485: DE Pin: Disable
+      Extra: RS-485: DE Pin Polarity: Active High
+      Extra: RS-485: DE Pin Assertion Time: 1
+      Extra: RS-485: DE Pin Negation Time: 1
+      Interrupts: Callback: log_uart_callback
+      Interrupts: Receive Interrupt Priority: Priority 12
+      Interrupts: Transmit Data Empty Interrupt Priority: Priority 12
+      Interrupts: Transmit End Interrupt Priority: Priority 12
+      Interrupts: Error Interrupt Priority: Priority 12
+      
   Thread "Main Thread"
     Symbol: main_thread
     Name: Main Thread

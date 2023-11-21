@@ -5,10 +5,6 @@
         <peripheral name="PORT0" group="PORT">
             <slot name="P007" secure="true"/>
         </peripheral>
-        <peripheral name="PORT1" group="PORT">
-            <slot name="P112" secure="true"/>
-            <slot name="P113" secure="true"/>
-        </peripheral>
         <peripheral name="PORT2" group="PORT">
             <slot name="P208" secure="true"/>
             <slot name="P209" secure="true"/>
@@ -17,6 +13,8 @@
         </peripheral>
         <peripheral name="PORT6" group="PORT">
             <slot name="P600" secure="true"/>
+            <slot name="P602" secure="true"/>
+            <slot name="P603" secure="true"/>
         </peripheral>
         <peripheral name="ADC0" group="ADC" security=""/>
         <peripheral name="ICU_EXT_IRQ">
@@ -24,6 +22,10 @@
         </peripheral>
         <peripheral name="ICU">
             <slot name="IRQ0" secure="true"/>
+            <slot name="IRQ1" secure="true"/>
+            <slot name="IRQ2" secure="true"/>
+            <slot name="IRQ3" secure="true"/>
+            <slot name="IRQ4" secure="true"/>
         </peripheral>
     </partition>
 </azone>
