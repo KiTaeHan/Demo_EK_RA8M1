@@ -91,7 +91,7 @@
             (1 << 15) /* ETHERC/EDMAC */ | \
             (1 << 16) /* OSPI */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 18) /* SPI1 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 19) /* SPI0 */ | \
+            (((1 > 0) ? 0U : 1U) << 19) /* SPI0 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 22) /* SCI9 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 27) /* SCI4 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 28) /* SCI3 */ | \
@@ -152,7 +152,7 @@
 #endif
 #ifndef BSP_TZ_CFG_MSSAR
 #define BSP_TZ_CFG_MSSAR (\
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 22) /* DTC_DMAC */ | \
+            (((2 > 0) ? 0U : 1U) << 22) /* DTC_DMAC */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 31) /* ELC */)
 #endif
 
@@ -221,7 +221,7 @@
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 8U) /* External IRQ8 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 9U) /* External IRQ9 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 10U) /* External IRQ10 */ | \
-            (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 11U) /* External IRQ11 */ | \
+            (((1 > 0) ? 0U : 1U) << 11U) /* External IRQ11 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 12U) /* External IRQ12 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 13U) /* External IRQ13 */ | \
             (((RA_NOT_DEFINED > 0) ? 0U : 1U) << 14U) /* External IRQ14 */ | \
@@ -267,10 +267,10 @@
 #endif
 
 /* Set DTCSTSAR if the Secure program uses the DTC. */
-#if RA_NOT_DEFINED == RA_NOT_DEFINED
-#define BSP_TZ_CFG_DTC_USED (0U)
+#if 2 == RA_NOT_DEFINED
+ #define BSP_TZ_CFG_DTC_USED (0U)
 #else
- #define BSP_TZ_CFG_DTC_USED (1U)
+#define BSP_TZ_CFG_DTC_USED (1U)
 #endif
 
 /* Security attribution of FLWT and FCKMHZ registers. */

@@ -18,6 +18,16 @@ extern const external_irq_cfg_t mic_external_irq2_cfg;
 #ifndef ext_isr_irq2
 void ext_isr_irq2(external_irq_callback_args_t *p_args);
 #endif
+/** External IRQ on ICU Instance. */
+extern const external_irq_instance_t LCD_external_irq11;
+
+/** Access the ICU instance using these structures when calling API functions directly (::p_api is not used). */
+extern icu_instance_ctrl_t LCD_external_irq11_ctrl;
+extern const external_irq_cfg_t LCD_external_irq11_cfg;
+
+#ifndef LCD_ext_irq11_callback
+void LCD_ext_irq11_callback(external_irq_callback_args_t *p_args);
+#endif
 #define IOPORT_CFG_NAME g_bsp_pin_cfg
 #define IOPORT_CFG_OPEN R_IOPORT_Open
 #define IOPORT_CFG_CTRL g_ioport_ctrl

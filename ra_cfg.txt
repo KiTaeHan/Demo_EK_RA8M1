@@ -152,7 +152,7 @@ FSP Configuration
       P003 P11 - - - - Disabled - - "ACMPHS1: IVREF_1; ADC1: AN104" - None - - 
       P004 P10 - - - - Disabled - - "ACMPHS0: IVCMP0_2; ADC0: AN000; IRQ9: IRQ9-DS" - None - - 
       P005 N10 - - - - Disabled - - "ADC0: AN001; IRQ10: IRQ10-DS" - None - - 
-      P006 R11 - - - - Disabled - - "ACMPHS0: IVCMP0_3; ADC0: AN002; IRQ11: IRQ11-DS" - None - - 
+      P006 R11 IRQ11_IRQ11-DS LCD_TE - IRQ11-DS "IRQ mode" - - "ACMPHS0: IVCMP0_3; ADC0: AN002; IRQ11: IRQ11-DS" - IO - - 
       P007 M10 ADC0_AN004 - - - "Analog mode" - - "ADC0: AN004" - I - - 
       P008 R10 - - - - Disabled - - "ADC0: AN008; IRQ12: IRQ12-DS" - None - - 
       P009 L9 - - - - Disabled - - "ADC0: AN006; IRQ13: IRQ13-DS" - None - - 
@@ -242,12 +242,12 @@ FSP Configuration
       P605 K5 - - - - Disabled - - "BUS: D4; GPT8: GTIOC8A; SCI0: CTS0; SDRAM: DQ4" - None - - 
       P606 M5 - - - - Disabled - - "BUS: D5; SDRAM: DQ5" - None - - 
       P607 J4 - - - - Disabled - - "BUS: D6; SDRAM: DQ6" - None - - 
-      P609 B1 - - - - Disabled - - "BUS: D8; CANFD1: CTX1; ETHER_MII: ET0_RX_DV; GPT5: GTIOC5B; SCI0: TXD0; SDRAM: DQ8; SPI0: MISO0; ULPT1: ULPTOA1_A-DS" - None - - 
-      P610 E4 - - - - Disabled - - "BUS: D9; CANFD1: CRX1; ETHER_MII: ET0_COL; GPT4: GTIOC4A; SCI0: RXD0; SDRAM: DQ9; SPI0: RSPCK0; ULPT1: ULPTOB1_A-DS" - None - - 
-      P611 D1 - - - - Disabled - - "BUS: D10; CAC: CACREF; CLKOUT: CLKOUT; ETHER_MII: ET0_ERXD2; GPT4: GTIOC4B; SCI0: DE0; SCI0: SCK0; SDRAM: DQ10; SPI0: MOSI0" - None - - 
-      P612 F3 - - - - Disabled - - "BUS: D11; ETHER_MII: ET0_ERXD3; SCI0: CTS_RTS0; SCI0: DE0; SDRAM: DQ11; SPI0: SSLA0" - None - - 
+      P609 B1 SPI0_MISO0 LCD_MISO M - "Peripheral mode" - - "BUS: D8; CANFD1: CTX1; ETHER_MII: ET0_RX_DV; GPT5: GTIOC5B; SCI0: TXD0; SDRAM: DQ8; SPI0: MISO0; ULPT1: ULPTOA1_A-DS" - IO - - 
+      P610 E4 SPI0_RSPCK0 LCD_SCK L - "Peripheral mode" - - "BUS: D9; CANFD1: CRX1; ETHER_MII: ET0_COL; GPT4: GTIOC4A; SCI0: RXD0; SDRAM: DQ9; SPI0: RSPCK0; ULPT1: ULPTOB1_A-DS" - IO - - 
+      P611 D1 SPI0_MOSI0 LCD_MOSI M - "Peripheral mode" - - "BUS: D10; CAC: CACREF; CLKOUT: CLKOUT; ETHER_MII: ET0_ERXD2; GPT4: GTIOC4B; SCI0: DE0; SCI0: SCK0; SDRAM: DQ10; SPI0: MOSI0" - IO - - 
+      P612 F3 SPI0_SSLA0 LCD_CS M - "Peripheral mode" - - "BUS: D11; ETHER_MII: ET0_ERXD3; SCI0: CTS_RTS0; SCI0: DE0; SDRAM: DQ11; SPI0: SSLA0" - IO - - 
       P613 E2 - - - - Disabled - - "AGT1: AGTO1; BUS: D12; GPT_POEGA: GTETRGA; SCI0: CTS0; SDRAM: DQ12" - None - - 
-      P614 F4 - - - - Disabled - - "AGT0: AGTO0; BUS: D13; GPT_POEGB: GTETRGB; SDRAM: DQ13" - None - - 
+      P614 F4 GPIO LCD_DCX L - "Output mode (Initial Low)" - - "AGT0: AGTO0; BUS: D13; GPT_POEGB: GTETRGB; SDRAM: DQ13" - IO - - 
       P615 E3 - - - - Disabled - - "BUS: D14; GPT_POEGC: GTETRGC; IRQ7: IRQ7; SDRAM: DQ14; USB FS: USB_VBUSEN" - None - - 
       P700 M14 - - - - Disabled - - "CEU: VIO_D4; ETHER_MII: ET0_ETXD1; ETHER_RMII: RMII0_TXD0; GPT5: GTIOC5A; SCI2: RXD2; SDHI1: SD1WP; SPI0: MISO0; SSIE1: SSIDATA1" - None - - 
       P701 L12 - - - - Disabled - - "CEU: VIO_D5; ETHER_MII: ET0_ETXD0; ETHER_RMII: REF50CK0; GPT5: GTIOC5B; SCI2: CTS_RTS2; SCI2: DE2; SDHI1: SD1DAT4; SPI0: MOSI0; SSIE1: SSIWS1; ULPT1: ULPTO1" - None - - 
@@ -305,7 +305,7 @@ FSP Configuration
       PA05 H5 - - - - Disabled - - "BUS: D23; SCI2: CTS_RTS2; SCI2: DE2; SDRAM: DQ23" - None - - 
       PA06 L5 - - - - Disabled - - "BUS: D22; GPT7: GTIOC7B; SCI2: CTS2; SDRAM: DQ22" - None - - 
       PA07 G5 - - - - Disabled - - "BUS: D21; GPT7: GTIOC7A; SDRAM: DQ21" - None - - 
-      PA08 G3 - - - - Disabled - - "BUS: D15; GPT_POEGD: GTETRGD; IRQ6: IRQ6; SDRAM: DQ15" - None - - 
+      PA08 G3 GPIO LCD_RESET L None "Output mode (Initial Low)" - - "BUS: D15; GPT_POEGD: GTETRGD; IRQ6: IRQ6; SDRAM: DQ15" - IO - - 
       PA09 E1 - - - - Disabled - - "BUS: EBCLK; IRQ5: IRQ5; SDRAM: SDCLK" - None - - 
       PA10 F2 - - - - Disabled - - "BUS: WR; BUS: WR0; IRQ4: IRQ4; SDRAM: DQM0" - None - - 
       PA11 D4 - - - - Disabled - - "BUS: BC2; BUS: WR2; GPT6: GTIOC6A; SDRAM: DQM2" - None - - 
@@ -388,6 +388,15 @@ FSP Configuration
     DTC Support: Disable
     Flow Control Support: Disable
     
+  Module "SPI (r_spi_b)"
+    Parameter Checking: Default (BSP)
+    Enable Support for using DTC: Enabled
+    Enable Transmitting from RXI Interrupt: Disabled
+    
+  Module "Transfer (r_dtc)"
+    Parameter Checking: Default (BSP)
+    Linker section to keep DTC vector table: .fsp_dtc_vector_table
+    
   Azure RTOS ThreadX
     General: Custom tx_user.h: 
     General: Error Checking: Enabled
@@ -459,6 +468,67 @@ FSP Configuration
       Interrupts: Transmit Data Empty Interrupt Priority: Priority 12
       Interrupts: Transmit End Interrupt Priority: Priority 12
       Interrupts: Error Interrupt Priority: Priority 12
+      
+    Instance "LCD_spi0 SPI (r_spi_b)"
+      Name: LCD_spi0
+      Channel: 0
+      Receive Interrupt Priority: Priority 12
+      Transmit Buffer Empty Interrupt Priority: Priority 12
+      Transfer Complete Interrupt Priority: Priority 12
+      Error Interrupt Priority: Priority 12
+      Operating Mode: Master
+      Clock Phase: Data sampling on odd edge, data variation on even edge
+      Clock Polarity: Low when idle
+      Mode Fault Error: Disable
+      Bit Order: MSB First
+      Callback: LCD_spi_callback
+      SPI Mode: Clock Synchronous Operation
+      Communication Mode Select: Full Duplex
+      Slave Select Polarity: Active Low
+      Select SSL(Slave Select): SSL0
+      MOSI Idle State: MOSI Idle Value Fixing Disable
+      Parity Mode: Disabled
+      Byte Swapping: Disable
+      Clock Source: PCLK
+      Bitrate: 16000000
+      Clock Delay: 1 Clock
+      SSL Negation Delay: 1 Clock
+      Next Access Delay: 1 Clock
+      
+      Instance "g_transfer0 Transfer (r_dtc) SPI0 TXI (Transmit buffer empty)"
+        Name: g_transfer0
+        Mode: Normal
+        Transfer Size: 2 Bytes
+        Destination Address Mode: Fixed
+        Source Address Mode: Incremented
+        Repeat Area (Unused in Normal Mode): Source
+        Interrupt Frequency: After all transfers have completed
+        Number of Transfers: 0
+        Number of Blocks (Valid only in Block Mode): 0
+        Number of Transfer Descriptors: 1
+        Activation Source: SPI0 TXI (Transmit buffer empty)
+        
+      Instance "g_transfer1 Transfer (r_dtc) SPI0 RXI (Receive buffer full)"
+        Name: g_transfer1
+        Mode: Normal
+        Transfer Size: 2 Bytes
+        Destination Address Mode: Incremented
+        Source Address Mode: Fixed
+        Repeat Area (Unused in Normal Mode): Destination
+        Interrupt Frequency: After all transfers have completed
+        Number of Transfers: 0
+        Number of Blocks (Valid only in Block Mode): 0
+        Number of Transfer Descriptors: 1
+        Activation Source: SPI0 RXI (Receive buffer full)
+        
+    Instance "LCD_external_irq11 External IRQ (r_icu)"
+      Name: LCD_external_irq11
+      Channel: 11
+      Trigger: Rising
+      Digital Filtering: Disabled
+      Digital Filtering Sample Clock (Only valid when Digital Filtering is Enabled): PCLK / 64
+      Callback: LCD_ext_irq11_callback
+      Pin Interrupt Priority: Priority 12
       
   Thread "Main Thread"
     Symbol: main_thread

@@ -91,14 +91,21 @@
   <raPinConfiguration>
     <pincfg active="true" name="" symbol="">
       <configSetting altId="adc0.an004.p007" configurationId="adc0.an004" isUsedByDriver="true"/>
+      <configSetting altId="irq11.irq11_dash_ds.p006" configurationId="irq11.irq11_dash_ds" isUsedByDriver="true"/>
       <configSetting altId="irq2.irq2.p509" configurationId="irq2.irq2" isUsedByDriver="true"/>
       <configSetting altId="jtag_fslash_swd.tck.p211" configurationId="jtag_fslash_swd.tck"/>
       <configSetting altId="jtag_fslash_swd.tdi.p208" configurationId="jtag_fslash_swd.tdi"/>
       <configSetting altId="jtag_fslash_swd.tdo.p209" configurationId="jtag_fslash_swd.tdo"/>
       <configSetting altId="jtag_fslash_swd.tms.p210" configurationId="jtag_fslash_swd.tms"/>
       <configSetting altId="p600.output.low" configurationId="p600"/>
+      <configSetting altId="p614.output.low" configurationId="p614"/>
+      <configSetting altId="pa08.output.low" configurationId="pa08"/>
       <configSetting altId="sci0.rxd0.p602" configurationId="sci0.rxd0" isUsedByDriver="true"/>
       <configSetting altId="sci0.txd0.p603" configurationId="sci0.txd0" isUsedByDriver="true"/>
+      <configSetting altId="spi0.miso0.p609" configurationId="spi0.miso0" isUsedByDriver="true"/>
+      <configSetting altId="spi0.mosi0.p611" configurationId="spi0.mosi0" isUsedByDriver="true"/>
+      <configSetting altId="spi0.rspck0.p610" configurationId="spi0.rspck0" isUsedByDriver="true"/>
+      <configSetting altId="spi0.ssla0.p612" configurationId="spi0.ssla0" isUsedByDriver="true"/>
     </pincfg>
   </raPinConfiguration>
 </raConfiguration>
