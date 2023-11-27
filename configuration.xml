@@ -403,7 +403,7 @@
     <module id="module.driver.external_irq_on_icu.1399606789">
       <property id="module.driver.external_irq.name" value="LCD_external_irq11"/>
       <property id="module.driver.external_irq.channel" value="11"/>
-      <property id="module.driver.external_irq.trigger" value="module.driver.external_irq.trigger.trig_rising"/>
+      <property id="module.driver.external_irq.trigger" value="module.driver.external_irq.trigger.trig_both_edge"/>
       <property id="module.driver.external_irq.filter_enable" value="module.driver.external_irq.filter_enable.false"/>
       <property id="module.driver.external_irq.clock_source_div" value="module.driver.external_irq.clock_source_div.clock_source_div_by_64"/>
       <property id="module.driver.external_irq.p_callback" value="LCD_ext_irq11_callback"/>

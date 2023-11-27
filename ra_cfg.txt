@@ -524,7 +524,7 @@ FSP Configuration
     Instance "LCD_external_irq11 External IRQ (r_icu)"
       Name: LCD_external_irq11
       Channel: 11
-      Trigger: Rising
+      Trigger: Both Edges
       Digital Filtering: Disabled
       Digital Filtering Sample Clock (Only valid when Digital Filtering is Enabled): PCLK / 64
       Callback: LCD_ext_irq11_callback

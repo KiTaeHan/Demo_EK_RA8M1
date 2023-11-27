@@ -24,7 +24,7 @@ const external_irq_instance_t mic_external_irq2 =
 { .p_ctrl = &mic_external_irq2_ctrl, .p_cfg = &mic_external_irq2_cfg, .p_api = &g_external_irq_on_icu };
 icu_instance_ctrl_t LCD_external_irq11_ctrl;
 const external_irq_cfg_t LCD_external_irq11_cfg =
-{ .channel = 11, .trigger = EXTERNAL_IRQ_TRIG_RISING, .filter_enable = false, .clock_source_div =
+{ .channel = 11, .trigger = EXTERNAL_IRQ_TRIG_BOTH_EDGE, .filter_enable = false, .clock_source_div =
           EXTERNAL_IRQ_CLOCK_SOURCE_DIV_64,
   .p_callback = LCD_ext_irq11_callback,
   /** If NULL then do not add & */

@@ -42,6 +42,8 @@ void log_uart_callback(uart_callback_args_t *p_args)
     }
 }
 
+
+
 // glibc callback functions
 int _write(int file, char *buffer, int count)
 {
@@ -81,6 +83,9 @@ int system_init(void)
     R_SCI_B_UART_Open(&log_uart0_ctrl, &log_uart0_cfg);
     setvbuf(stdout, NULL, _IONBF, UART_BUFFER_SIZE);
 
+    // SPI init
+//    R_SPI_B_Open(&LCD_spi0_ctrl, &LCD_spi0_cfg);
+
     return status;
 }
 
@@ -93,9 +98,13 @@ void main_thread_entry(void)
 
     printf("Start Application\r\n");
 
+//    unsigned char data = 0xAA;
+
     /* TODO: add your own code here */
     while (1)
     {
+//        R_SPI_B_Write(&LCD_spi0_ctrl, &data, 1, SPI_BIT_WIDTH_8_BITS);
+
         R_ADC_Read(&mic_adc04_ctrl, ADC_CHANNEL_4, &mic_data);
         SEGGER_RTT_printf(0, "MIC: %d\r\n", mic_data);
 
