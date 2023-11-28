@@ -41,8 +41,8 @@ extern  TIM_HandleTypeDef                   htim2;
 
 /* BUS IO functions */
 #define LCD_SPI_Init                        RA8M1_SPI1_Init
-#define LCD_SPI_DeInit                      BSP_SPI1_DeInit
-#define LCD_SPI_Send                        BSP_SPI1_Send
+#define LCD_SPI_DeInit                      RA8M1_SPI1_DeInit
+#define LCD_SPI_Send                        RA8M1_SPI1_Send
 #define LCD_SPI_Recv                        BSP_SPI1_Recv
 #define LCD_SPI_SendRecv                    BSP_SPI1_SendRecv
 #define LCD_SPI_Send_DMA                    BSP_SPI1_Send_DMA
@@ -74,7 +74,9 @@ extern  TIM_HandleTypeDef                   htim2;
 #endif
 
 
-int32_t RA8M1_SPI1_Init();
+int32_t RA8M1_SPI1_Init(void);
+int32_t RA8M1_SPI1_DeInit(void);
+int32_t RA8M1_SPI1_Send(uint8_t *pData, uint32_t Length);
 
 
 void LCD_RST_LOW();

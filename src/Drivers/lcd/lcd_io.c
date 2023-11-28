@@ -4,6 +4,10 @@
 #include "ili9341/ili9341.h"
 
 static int32_t LCD_IO_Init(void);
+static int32_t LCD_IO_DeInit(void);
+static int32_t LCD_IO_ReadReg(volatile uint8_t *Reg, uint32_t Length);
+static int32_t LCD_IO_WriteReg(volatile uint8_t *Reg, uint32_t Length);
+static int32_t LCD_IO_SendData(uint8_t *pData, uint32_t Length);
 
 static void             *LcdCompObj = NULL;
 static LCD_Drv_t        *LcdDrv = NULL;
@@ -91,3 +95,64 @@ static int32_t LCD_IO_Init(void)
 
   return ret;
 }
+
+/* DeInitializes LCD low level
+  */
+static int32_t LCD_IO_DeInit(void)
+{
+  int32_t ret = BSP_ERROR_NONE;
+
+  ret = LCD_SPI_DeInit();
+
+  return ret;
+}
+
+/**
+  * @brief  Read register on LCD register.
+  * @param  Reg    Register to be read
+  * @param  Length length of data be read from the LCD GRAM
+  * @retval BSP status
+  */
+static int32_t LCD_IO_ReadReg(volatile uint8_t *Reg, uint32_t Length)
+{
+    (void)Reg;
+    (void)Length;
+    return BSP_ERROR_FEATURE_NOT_SUPPORTED;
+}
+
+/**
+  * @brief  Writes register on LCD register.
+  * @param  Reg    Register to be written
+  * @param  Length length of data be read from the LCD GRAM
+  * @retval BSP status
+  */
+static int32_t LCD_IO_WriteReg(volatile uint8_t *Reg, uint32_t Length)
+{
+  int32_t ret = BSP_ERROR_NONE;
+
+  LCD_CS_LOW();
+  LCD_DC_HIGH();
+  ret = LCD_SPI_Send((uint8_t *)Reg, Length);
+  LCD_DC_LOW();
+  LCD_CS_HIGH();
+
+  return ret;
+}
+
+/**
+  * @brief  Send data to select the LCD GRAM.
+  * @param  pData  pointer to data to write to LCD GRAM.
+  * @param  Length length of data to write to LCD GRAM
+  * @retval Error status
+  */
+static int32_t LCD_IO_SendData(uint8_t *pData, uint32_t Length)
+{
+  int32_t ret = BSP_ERROR_NONE;
+
+  LCD_CS_LOW();
+  ret = LCD_SPI_Send(pData, Length);
+  LCD_CS_HIGH();
+
+  return ret;
+}
+

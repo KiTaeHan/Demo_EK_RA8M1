@@ -27,7 +27,7 @@ void LCD_ext_irq11_callback(external_irq_callback_args_t *p_args)
     }
 }
 
-int32_t RA8M1_SPI1_Init()
+int32_t RA8M1_SPI1_Init(void)
 {
     int32_t ret = BSP_ERROR_NONE;
 
@@ -38,6 +38,35 @@ int32_t RA8M1_SPI1_Init()
 
     return ret;
 }
+
+int32_t RA8M1_SPI1_DeInit(void)
+{
+    int32_t ret = BSP_ERROR_NONE;
+
+    if(R_SPI_B_Close(&LCD_spi0_ctrl) != FSP_SUCCESS)
+    {
+        ret = BSP_ERROR_BUS_FAILURE;
+    }
+    if(R_SPI_B_Open(&LCD_spi0_ctrl, &LCD_spi0_cfg) != FSP_SUCCESS)
+    {
+        ret = BSP_ERROR_BUS_FAILURE;
+    }
+
+    return ret;
+}
+
+int32_t RA8M1_SPI1_Send(uint8_t *pData, uint32_t Length)
+{
+  int32_t ret = BSP_ERROR_NONE;
+
+  if(R_SPI_B_Write(&LCD_spi0_ctrl, (void*)pData, Length, SPI_BIT_WIDTH_8_BITS) != FSP_SUCCESS)
+  {
+      ret = BSP_ERROR_UNKNOWN_FAILURE;
+  }
+
+  return ret;
+}
+
 
 
 
