@@ -57,15 +57,37 @@ int32_t RA8M1_SPI1_DeInit(void)
 
 int32_t RA8M1_SPI1_Send(uint8_t *pData, uint32_t Length)
 {
-  int32_t ret = BSP_ERROR_NONE;
+    int32_t ret = BSP_ERROR_NONE;
 
-  if(R_SPI_B_Write(&LCD_spi0_ctrl, (void*)pData, Length, SPI_BIT_WIDTH_8_BITS) != FSP_SUCCESS)
-  {
-      ret = BSP_ERROR_UNKNOWN_FAILURE;
-  }
+    if(R_SPI_B_Write(&LCD_spi0_ctrl, (void*)pData, Length, SPI_BIT_WIDTH_8_BITS) != FSP_SUCCESS)
+    {
+        ret = BSP_ERROR_UNKNOWN_FAILURE;
+    }
 
-  return ret;
+    return ret;
 }
+
+int32_t  RA8M1_SPI1_Recv(uint8_t *pData, uint32_t Length)
+{
+    int32_t ret = BSP_ERROR_NONE;
+
+    if(R_SPI_B_Read(&LCD_spi0_ctrl, (void*)pData, Length, SPI_BIT_WIDTH_8_BITS) != FSP_SUCCESS)
+    {
+        ret = BSP_ERROR_UNKNOWN_FAILURE;
+    }
+
+    return ret;
+}
+
+uint32_t RA8M1_GetTick(void)
+{
+    uint32_t tick = 0;
+
+    tick = (uint32_t)tx_time_get();
+
+    return tick;
+}
+
 
 
 
@@ -102,7 +124,7 @@ void LCD_DC_HIGH()
     R_BSP_PinWrite(LCD_DCX, BSP_IO_LEVEL_HIGH);
 }
 
-void UserDelay_10MS(int ms)
+void UserDelay_MS(uint32_t  ms)
 {
     tx_thread_sleep(ms);
 }

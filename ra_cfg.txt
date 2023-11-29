@@ -400,7 +400,7 @@ FSP Configuration
   Azure RTOS ThreadX
     General: Custom tx_user.h: 
     General: Error Checking: Enabled
-    Timer: Timer Ticks Per Second: 100
+    Timer: Timer Ticks Per Second: 1000
     General: Max Priorities: 32
     General: Minimum Stack: 200
     Timer: Timer Thread Stack Size: 1024

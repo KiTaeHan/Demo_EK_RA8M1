@@ -43,11 +43,13 @@ extern  TIM_HandleTypeDef                   htim2;
 #define LCD_SPI_Init                        RA8M1_SPI1_Init
 #define LCD_SPI_DeInit                      RA8M1_SPI1_DeInit
 #define LCD_SPI_Send                        RA8M1_SPI1_Send
-#define LCD_SPI_Recv                        BSP_SPI1_Recv
-#define LCD_SPI_SendRecv                    BSP_SPI1_SendRecv
-#define LCD_SPI_Send_DMA                    BSP_SPI1_Send_DMA
-#define LCD_SPI_Recv_DMA                    BSP_SPI1_Recv_DMA
-#define LCD_SPI_SendRecv_DMA                BSP_SPI1_SendRecv_DMA
+#define LCD_SPI_Recv                        RA8M1_SPI1_Recv
+//#define LCD_SPI_SendRecv                    BSP_SPI1_SendRecv
+#define LCD_SPI_Send_DMA                    RA8M1_SPI1_Send_DMA
+//#define LCD_SPI_Recv_DMA                    BSP_SPI1_Recv_DMA
+//#define LCD_SPI_SendRecv_DMA                BSP_SPI1_SendRecv_DMA
+#define LCD_GetTick                         RA8M1_GetTick
+#define LCD_Delay                           UserDelay_MS
 
 #if 0
 /* CS Pin mapping */
@@ -77,6 +79,8 @@ extern  TIM_HandleTypeDef                   htim2;
 int32_t RA8M1_SPI1_Init(void);
 int32_t RA8M1_SPI1_DeInit(void);
 int32_t RA8M1_SPI1_Send(uint8_t *pData, uint32_t Length);
+int32_t RA8M1_SPI1_Recv(uint8_t *pData, uint32_t Length);
+uint32_t RA8M1_GetTick(void);
 
 
 void LCD_RST_LOW();
@@ -85,7 +89,7 @@ void LCD_CS_LOW();
 void LCD_CS_HIGH();
 void LCD_DC_LOW();
 void LCD_DC_HIGH();
-void UserDelay_10MS(int ms);
+void UserDelay_MS(uint32_t ms);
 
 
 #ifdef __cplusplus
