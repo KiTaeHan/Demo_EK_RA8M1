@@ -31,4 +31,7 @@ typedef struct
 }LCD_Drv_t;
 
 
+int32_t LCD_Probe(uint32_t Orientation);
+
+
 #endif /* DRIVERS_LCD_LCD_IO_H_ */

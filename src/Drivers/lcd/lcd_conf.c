@@ -3,10 +3,52 @@
 #include "lcd_errno.h"
 #include "lcd_conf.h"
 
+#define RESET_VALUE    0x00
+
+static volatile spi_event_t LCD_spi_EventFlag = RESET_VALUE;
+
+#if 0
+static int LCD_spi_EventCheck(void);
+
+static int LCD_spi_EventCheck(void)
+{
+    int count = 0x7FFFFFF;
+
+    while(SPI_EVENT_TRANSFER_COMPLETE != LCD_spi_EventFlag)
+    {
+        count--;
+        if(RESET_VALUE >= count)
+        {
+            // SPI blocked in W/R operation
+            return -1;
+        }
+        else if(SPI_EVENT_TRANSFER_ABORTED == LCD_spi_EventFlag)
+        {
+            // SPI transfer aborted.
+            return -1;
+        }
+        else
+        {
+            // SPI error
+            return -1;
+        }
+    }
+
+    return 0;
+}
+#endif
+
 // ISR Callback
 void LCD_spi_callback(spi_callback_args_t *p_args)
 {
-    (void)p_args;
+    if(SPI_EVENT_TRANSFER_COMPLETE == p_args->event)
+    {
+       LCD_spi_EventFlag =  SPI_EVENT_TRANSFER_COMPLETE;
+    }
+    else
+    {
+       LCD_spi_EventFlag =  SPI_EVENT_TRANSFER_ABORTED;
+    }
 }
 
 void LCD_ext_irq11_callback(external_irq_callback_args_t *p_args)
@@ -47,10 +89,12 @@ int32_t RA8M1_SPI1_DeInit(void)
     {
         ret = BSP_ERROR_BUS_FAILURE;
     }
+ /*
     if(R_SPI_B_Open(&LCD_spi0_ctrl, &LCD_spi0_cfg) != FSP_SUCCESS)
     {
         ret = BSP_ERROR_BUS_FAILURE;
     }
+*/
 
     return ret;
 }
@@ -87,7 +131,6 @@ uint32_t RA8M1_GetTick(void)
 
     return tick;
 }
-
 
 
 

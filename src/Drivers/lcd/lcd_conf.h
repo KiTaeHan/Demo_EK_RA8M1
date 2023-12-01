@@ -45,7 +45,7 @@ extern  TIM_HandleTypeDef                   htim2;
 #define LCD_SPI_Send                        RA8M1_SPI1_Send
 #define LCD_SPI_Recv                        RA8M1_SPI1_Recv
 //#define LCD_SPI_SendRecv                    BSP_SPI1_SendRecv
-#define LCD_SPI_Send_DMA                    RA8M1_SPI1_Send_DMA
+//#define LCD_SPI_Send_DMA                    RA8M1_SPI1_Send_DMA
 //#define LCD_SPI_Recv_DMA                    BSP_SPI1_Recv_DMA
 //#define LCD_SPI_SendRecv_DMA                BSP_SPI1_SendRecv_DMA
 #define LCD_GetTick                         RA8M1_GetTick

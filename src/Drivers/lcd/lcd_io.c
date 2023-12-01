@@ -23,7 +23,7 @@ static ILI9341_Object_t Obj_Ili9341 = {0};
 
 /* Register Bus IO
  */
-static int32_t LCD_Probe(uint32_t Orientation)
+int32_t LCD_Probe(uint32_t Orientation)
 {
     int32_t ret = BSP_ERROR_NONE;
     ILI9341_InitParams_t ILI9341_InitParams;
@@ -169,14 +169,17 @@ static int32_t LCD_IO_SendData(uint8_t *pData, uint32_t Length)
   */
 static int32_t LCD_IO_SendDataDMA(uint8_t *pData, uint32_t Length)
 {
+#if 0
     int32_t ret = BSP_ERROR_NONE;
-
     LCD_CS_LOW();
-
     /* Send Data */
-//    ret = LCD_SPI_Send_DMA(pData, Length);
-
+    ret = LCD_SPI_Send_DMA(pData, Length);
     return ret;
+#else
+    (void)pData;
+    (void)Length;
+    return BSP_ERROR_FEATURE_NOT_SUPPORTED;
+#endif
 }
 
 /**
