@@ -3,12 +3,31 @@
 #include "lcd_errno.h"
 #include "lcd_conf.h"
 
+#define LCD_SPI_USE_RTOS        1
 #define RESET_VALUE    0x00
 
-static volatile spi_event_t LCD_spi_EventFlag = RESET_VALUE;
-
-#if 0
 static int LCD_spi_EventCheck(void);
+
+#if LCD_SPI_USE_RTOS
+
+TX_EVENT_FLAGS_GROUP LCD_Spi_EventFlag;
+
+static int LCD_spi_EventCheck(void)
+{
+    ULONG event;
+
+    // RA8M1 SPI events
+    tx_event_flags_get(&LCD_Spi_EventFlag, 0xFF, TX_OR_CLEAR, &event, TX_WAIT_FOREVER);
+
+    if(SPI_EVENT_TRANSFER_COMPLETE != event)
+    {
+        return -1;
+    }
+
+    return 0;
+}
+#else
+static volatile spi_event_t LCD_spi_EventFlag = RESET_VALUE;
 
 static int LCD_spi_EventCheck(void)
 {
@@ -41,6 +60,13 @@ static int LCD_spi_EventCheck(void)
 // ISR Callback
 void LCD_spi_callback(spi_callback_args_t *p_args)
 {
+#if LCD_SPI_USE_RTOS
+    // Set event flags
+    tx_event_flags_set(&LCD_Spi_EventFlag, p_args->event, TX_OR);
+    /* Optionally, resume a higher-priority thread if needed */
+//    tx_interrupt_control(new_posture);
+
+#else
     if(SPI_EVENT_TRANSFER_COMPLETE == p_args->event)
     {
        LCD_spi_EventFlag =  SPI_EVENT_TRANSFER_COMPLETE;
@@ -49,6 +75,7 @@ void LCD_spi_callback(spi_callback_args_t *p_args)
     {
        LCD_spi_EventFlag =  SPI_EVENT_TRANSFER_ABORTED;
     }
+#endif
 }
 
 void LCD_ext_irq11_callback(external_irq_callback_args_t *p_args)
@@ -72,6 +99,16 @@ void LCD_ext_irq11_callback(external_irq_callback_args_t *p_args)
 int32_t RA8M1_SPI1_Init(void)
 {
     int32_t ret = BSP_ERROR_NONE;
+
+#if LCD_SPI_USE_RTOS
+    UINT status;
+
+    status = tx_event_flags_create (&LCD_Spi_EventFlag, (CHAR*) "LCD Spi Event Flags");
+    if (TX_SUCCESS != status)
+    {
+        return BSP_ERROR_COMPONENT_FAILURE;
+    }
+#endif
 
     if(R_SPI_B_Open(&LCD_spi0_ctrl, &LCD_spi0_cfg) != FSP_SUCCESS)
     {
@@ -108,6 +145,11 @@ int32_t RA8M1_SPI1_Send(uint8_t *pData, uint32_t Length)
         ret = BSP_ERROR_UNKNOWN_FAILURE;
     }
 
+    if(LCD_spi_EventCheck())
+    {
+        ret = TX_WAIT_FOREVER;
+    }
+
     return ret;
 }
 
@@ -118,6 +160,11 @@ int32_t  RA8M1_SPI1_Recv(uint8_t *pData, uint32_t Length)
     if(R_SPI_B_Read(&LCD_spi0_ctrl, (void*)pData, Length, SPI_BIT_WIDTH_8_BITS) != FSP_SUCCESS)
     {
         ret = BSP_ERROR_UNKNOWN_FAILURE;
+    }
+
+    if(LCD_spi_EventCheck())
+    {
+        ret = TX_WAIT_FOREVER;
     }
 
     return ret;

@@ -584,3 +584,7 @@ FSP Configuration
       Callback: ext_isr_irq2
       Pin Interrupt Priority: Priority 12
       
+  Object "g_Test_event_flags0 Event Flags"
+    Name: Test Event Flags
+    Symbol: g_Test_event_flags0
+    
