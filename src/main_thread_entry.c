@@ -4,10 +4,12 @@
 #include "RTT/SEGGER_RTT.h"
 
 #include "syscall.h"
+#include "lcd_io.h"
 
 #define UART_BUFFER_SIZE        1024
 
 int system_init(void);
+void LCD_Display_Init(void);
 
 volatile bool log_TXComplete;
 
@@ -61,6 +63,12 @@ int _write(int file, char *buffer, int count)
     return tx_count;
 }
 
+
+void LCD_Display_Init(void)
+{
+    LCD_Probe(LCD_ORIENTATION_PORTRAIT);
+}
+
 // user define functions
 int system_init(void)
 {
@@ -85,6 +93,8 @@ int system_init(void)
 
     // SPI init
 //    R_SPI_B_Open(&LCD_spi0_ctrl, &LCD_spi0_cfg);
+
+    LCD_Display_Init();
 
     return status;
 }

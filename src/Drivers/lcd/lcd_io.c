@@ -23,7 +23,7 @@ static ILI9341_Object_t Obj_Ili9341 = {0};
 
 /* Register Bus IO
  */
-int32_t LCD_Probe(uint32_t Orientation)
+int LCD_Probe(uint32_t Orientation)
 {
     int32_t ret = BSP_ERROR_NONE;
     ILI9341_InitParams_t ILI9341_InitParams;
@@ -74,6 +74,170 @@ int32_t LCD_Probe(uint32_t Orientation)
     return ret;
 }
 
+int LCD_GetXSize(uint32_t *xsize)
+{
+    int ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+
+    if(LcdDrv->GetXSize != NULL)
+    {
+       if(LcdDrv->GetXSize(LcdCompObj, xsize) < 0)
+       {
+           ret = BSP_ERROR_COMPONENT_FAILURE;
+       }
+       else
+       {
+           ret = BSP_ERROR_NONE;
+       }
+    }
+
+    return ret;
+}
+
+int LCD_GetYSize(uint32_t *ysize)
+{
+    int ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+
+    if(LcdDrv->GetYSize != NULL)
+    {
+       if(LcdDrv->GetYSize(LcdCompObj, ysize) < 0)
+       {
+           ret = BSP_ERROR_COMPONENT_FAILURE;
+       }
+       else
+       {
+           ret = BSP_ERROR_NONE;
+       }
+    }
+
+    return ret;
+}
+
+int LCD_GetOrientation(uint32_t *orientation)
+{
+    int ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+
+    if(LcdDrv->GetOrientation != NULL)
+    {
+       if(LcdDrv->GetOrientation(LcdCompObj, orientation) < 0)
+       {
+           ret = BSP_ERROR_COMPONENT_FAILURE;
+       }
+       else
+       {
+           ret = BSP_ERROR_NONE;
+       }
+    }
+
+    return ret;
+}
+
+/*
+ * Send data to select the LCD GRAM
+ * pData: Pointer to data to write LCD GRAM.
+ * Length: Length of data to write to LCD GRAM.
+ */
+int LCD_WriteDataDMA(uint8_t *pData, uint32_t Length)
+{
+   int ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+
+   if(IO_Ili9341.SendDataDMA != NULL)
+   {
+       if(IO_Ili9341.SendDataDMA(pData, (Length/2)) < 0)
+       {
+           ret = BSP_ERROR_COMPONENT_FAILURE;
+       }
+       else
+       {
+           ret = BSP_ERROR_NONE;
+       }
+   }
+
+   return ret;
+}
+
+/*
+ * Send data to select the LCD GRAM
+ * pData: Pointer to data to write LCD GRAM.
+ * Length: Length of data to write to LCD GRAM.
+ */
+int LCD_WriteData(uint8_t *pData, uint32_t Length)
+{
+   int ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+
+   if(IO_Ili9341.SendData != NULL)
+   {
+       if(IO_Ili9341.SendData(pData, (Length/2)) < 0)
+       {
+           ret = BSP_ERROR_COMPONENT_FAILURE;
+       }
+       else
+       {
+           ret = BSP_ERROR_NONE;
+       }
+   }
+
+   return ret;
+}
+
+/*
+ * Sets a display windw.
+ * Xpos: Specifies the X position.
+ * Ypos: Specifies the Y position.
+ * Width: Specifies the width of the rectangle to fill.
+ * Height: Specifies the height of the rectangle to fill.
+ */
+int LCD_SetDisplayWindow(uint32_t Xpos, uint32_t Ypos, uint32_t Width, uint32_t Height)
+{
+    int ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+
+    if(LcdDrv->SetDisplayWindow != NULL)
+    {
+       if(LcdDrv->SetDisplayWindow(LcdCompObj, Xpos, Ypos, Width, Height) < 0)
+       {
+           ret = BSP_ERROR_COMPONENT_FAILURE;
+       }
+       else
+       {
+           ret = BSP_ERROR_NONE;
+       }
+    }
+
+    return ret;
+}
+
+/*
+ * Send RGB Data to Select the LCD GRAM
+ * UseDMA: Specifies if DMA will be used for data Transferring.
+ * pData: Pointer to data to write to LCD GRAM.
+ * Xpos: Specifies the X position.
+ * Ypos: Specifies the Y position.
+ * Width: Specifies the width of the rectangle to fill.
+ * Height: Specifies the height of the rectangle to fill.
+ */
+int LCD_FillRGBRect(uint8_t UseDMA, uint8_t *pData, uint32_t Xpos, uint32_t Ypos, uint32_t Width, uint32_t Height)
+{
+    int ret = BSP_ERROR_NONE;
+
+    if(LCD_SetDisplayWindow(Xpos, Ypos, Width, Height) == BSP_ERROR_NONE)
+    {
+        if(UseDMA)
+        {
+            ret = LCD_WriteDataDMA(pData, (2*Width*Height));
+        }
+        else
+        {
+            ret = LCD_WriteData(pData, (2*Width*Height));
+        }
+    }
+    else
+    {
+        ret = BSP_ERROR_BUS_FAILURE;
+    }
+
+    return ret;
+}
+
+/*------------------- static functions -------------------*/
 /* Initializes LCD low level.
   */
 static int32_t LCD_IO_Init(void)

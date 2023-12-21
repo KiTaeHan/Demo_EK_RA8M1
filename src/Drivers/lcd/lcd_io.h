@@ -2,6 +2,17 @@
 #define DRIVERS_LCD_LCD_IO_H_
 
 #include "hal_data.h"
+#include "ili9341/ili9341.h"
+
+/**
+  * @addtogroup LCD_Orientation LCD Orientation
+  * @brief      Supported LCD Orientations.
+  * @{
+  */
+#define LCD_ORIENTATION_PORTRAIT            ILI9341_ORIENTATION_PORTRAIT          /*!< Portrait orientation choice of LCD screen               */
+#define LCD_ORIENTATION_PORTRAIT_ROT180     ILI9341_ORIENTATION_PORTRAIT_ROT180   /*!< Portrait rotated 180° orientation choice of LCD screen  */
+#define LCD_ORIENTATION_LANDSCAPE           ILI9341_ORIENTATION_LANDSCAPE         /*!< Landscape orientation choice of LCD screen              */
+#define LCD_ORIENTATION_LANDSCAPE_ROT180    ILI9341_ORIENTATION_LANDSCAPE_ROT180  /*!< Landscape rotated 180° orientation choice of LCD screen */
 
 typedef struct
 {
@@ -31,7 +42,14 @@ typedef struct
 }LCD_Drv_t;
 
 
-int32_t LCD_Probe(uint32_t Orientation);
+int LCD_Probe(uint32_t Orientation);
+int LCD_GetXSize(uint32_t *xsize);
+int LCD_GetYSize(uint32_t *ysize);
+int LCD_GetOrientation(uint32_t *orientation);
+int LCD_WriteDataDMA(uint8_t *pData, uint32_t Length);
+int LCD_WriteData(uint8_t *pData, uint32_t Length);
+int LCD_SetDisplayWindow(uint32_t Xpos, uint32_t Ypos, uint32_t Width, uint32_t Height);
+int LCD_FillRGBRect(uint8_t UseDMA, uint8_t *pData, uint32_t Xpos, uint32_t Ypos, uint32_t Width, uint32_t Height);
 
 
 #endif /* DRIVERS_LCD_LCD_IO_H_ */
