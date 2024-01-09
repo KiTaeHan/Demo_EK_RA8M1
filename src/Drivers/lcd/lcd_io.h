@@ -2,6 +2,8 @@
 #define DRIVERS_LCD_LCD_IO_H_
 
 #include "hal_data.h"
+
+#include "lcd_errno.h"
 #include "ili9341/ili9341.h"
 
 /**
@@ -13,6 +15,13 @@
 #define LCD_ORIENTATION_PORTRAIT_ROT180     ILI9341_ORIENTATION_PORTRAIT_ROT180   /*!< Portrait rotated 180° orientation choice of LCD screen  */
 #define LCD_ORIENTATION_LANDSCAPE           ILI9341_ORIENTATION_LANDSCAPE         /*!< Landscape orientation choice of LCD screen              */
 #define LCD_ORIENTATION_LANDSCAPE_ROT180    ILI9341_ORIENTATION_LANDSCAPE_ROT180  /*!< Landscape rotated 180° orientation choice of LCD screen */
+
+/**
+  * @addtogroup LCD_Cache_lines LCD Cache lines
+  * @brief      LCD Cache buffer as configured by the user.
+  * @{
+  */
+#define BUFFER_CACHE_LINES                  16  /*!< hideinitializer Number of lines defined by the user for the Buffer cache */
 
 typedef struct
 {
@@ -50,6 +59,12 @@ int LCD_WriteDataDMA(uint8_t *pData, uint32_t Length);
 int LCD_WriteData(uint8_t *pData, uint32_t Length);
 int LCD_SetDisplayWindow(uint32_t Xpos, uint32_t Ypos, uint32_t Width, uint32_t Height);
 int LCD_FillRGBRect(uint8_t UseDMA, uint8_t *pData, uint32_t Xpos, uint32_t Ypos, uint32_t Width, uint32_t Height);
+int32_t LCD_DisplayOn(void);
+
+
+void LCD_TERisingCallback(void);
+void LCD_TEFallingCallback(void);
+void LCD_SignalTearingEffectEvent(uint8_t State, uint16_t Line);
 
 
 #endif /* DRIVERS_LCD_LCD_IO_H_ */

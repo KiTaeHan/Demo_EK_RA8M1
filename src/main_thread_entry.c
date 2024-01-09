@@ -4,12 +4,12 @@
 #include "RTT/SEGGER_RTT.h"
 
 #include "syscall.h"
-#include "lcd_io.h"
+#include "app_display.h"
 
 #define UART_BUFFER_SIZE        1024
 
 int system_init(void);
-void LCD_Display_Init(void);
+int LCD_Display_Init(void);
 
 volatile bool log_TXComplete;
 
@@ -64,9 +64,30 @@ int _write(int file, char *buffer, int count)
 }
 
 
-void LCD_Display_Init(void)
+int LCD_Display_Init(void)
 {
+    uint32_t LCD_Width = 0;
+    uint32_t LCD_Height = 0;
+    uint32_t LCD_Orientation = 0;
+
     LCD_Probe(LCD_ORIENTATION_PORTRAIT);
+
+    if((LCD_GetXSize(&LCD_Width) != BSP_ERROR_NONE) ||
+       (LCD_GetYSize(&LCD_Height) != BSP_ERROR_NONE) ||
+       (LCD_GetOrientation(&LCD_Orientation) != BSP_ERROR_NONE) )
+    {
+        printf("Error get LCD info\r\n");
+        return -1;
+    }
+
+    APP_LCD_Clear(0, 0, LCD_Width, LCD_Height);
+    if(LCD_DisplayOn() != BSP_ERROR_NONE)
+    {
+        printf("Error LCD display ON\r\n");
+        return -1;
+    }
+
+    return 0;
 }
 
 // user define functions
@@ -91,9 +112,6 @@ int system_init(void)
     R_SCI_B_UART_Open(&log_uart0_ctrl, &log_uart0_cfg);
     setvbuf(stdout, NULL, _IONBF, UART_BUFFER_SIZE);
 
-    // SPI init
-//    R_SPI_B_Open(&LCD_spi0_ctrl, &LCD_spi0_cfg);
-
     LCD_Display_Init();
 
     return status;
@@ -108,13 +126,24 @@ void main_thread_entry(void)
 
     printf("Start Application\r\n");
 
-//    unsigned char data = 0xAA;
+    while(1)
+    {
+        unsigned char data = 0xAA;
+        R_SPI_B_Write(&LCD_spi0_ctrl, &data, 1, SPI_BIT_WIDTH_8_BITS);
+        tx_thread_sleep (1);
+    }
+
+    while(1)
+    {
+        R_IOPORT_PinWrite(&g_ioport_ctrl, LED_RED, BSP_IO_LEVEL_HIGH);
+        tx_thread_sleep (500);
+        R_IOPORT_PinWrite(&g_ioport_ctrl, LED_RED, BSP_IO_LEVEL_LOW);
+        tx_thread_sleep (500);
+    }
 
     /* TODO: add your own code here */
     while (1)
     {
-//        R_SPI_B_Write(&LCD_spi0_ctrl, &data, 1, SPI_BIT_WIDTH_8_BITS);
-
         R_ADC_Read(&mic_adc04_ctrl, ADC_CHANNEL_4, &mic_data);
         SEGGER_RTT_printf(0, "MIC: %d\r\n", mic_data);
 

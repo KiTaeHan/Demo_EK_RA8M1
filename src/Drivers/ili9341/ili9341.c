@@ -219,8 +219,8 @@ int32_t ILI9341_Init(ILI9341_Object_t *pObj, ILI9341_InitParams_t* pInitParams)
       // Set TE scan line
       reg = ILI9341_SET_TEAR_SCANLINE;
       ret += ili9341_write_reg(&pObj->Ctx, &reg, 1);
-      parameter[0] = (pInitParams->TEScanline & 0x100);
-      parameter[1] = (pInitParams->TEScanline & 0x0FF);
+      parameter[0] = (uint8_t)(pInitParams->TEScanline & 0x100);
+      parameter[1] = (uint8_t)(pInitParams->TEScanline & 0x0FF);
       ret += ili9341_send_data(&pObj->Ctx, (uint8_t *)parameter, 2);
 
       // Enable TE

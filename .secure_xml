@@ -97,6 +97,7 @@
       <configSetting altId="jtag_fslash_swd.tdi.p208" configurationId="jtag_fslash_swd.tdi"/>
       <configSetting altId="jtag_fslash_swd.tdo.p209" configurationId="jtag_fslash_swd.tdo"/>
       <configSetting altId="jtag_fslash_swd.tms.p210" configurationId="jtag_fslash_swd.tms"/>
+      <configSetting altId="p107.output.low" configurationId="p107"/>
       <configSetting altId="p600.output.low" configurationId="p600"/>
       <configSetting altId="p614.output.low" configurationId="p614"/>
       <configSetting altId="pa08.output.low" configurationId="pa08"/>

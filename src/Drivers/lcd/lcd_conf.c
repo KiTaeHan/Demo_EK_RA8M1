@@ -2,6 +2,7 @@
 
 #include "lcd_errno.h"
 #include "lcd_conf.h"
+#include "lcd_io.h"
 
 #define LCD_SPI_USE_RTOS        1
 #define RESET_VALUE    0x00
@@ -87,11 +88,13 @@ void LCD_ext_irq11_callback(external_irq_callback_args_t *p_args)
         R_IOPORT_PinRead(&g_ioport_ctrl, LCD_TE, &status);
         if(BSP_IO_LEVEL_HIGH == status)
         {
-
+            // de-allow display refresh
+            LCD_TERisingCallback();
         }
         else
         {
-
+            // allow display refresh
+            LCD_TEFallingCallback();
         }
     }
 }

@@ -1,5 +1,4 @@
 #include "lcd_conf.h"
-#include "lcd_errno.h"
 #include "lcd_io.h"
 #include "ili9341/ili9341.h"
 
@@ -237,6 +236,30 @@ int LCD_FillRGBRect(uint8_t UseDMA, uint8_t *pData, uint32_t Xpos, uint32_t Ypos
     return ret;
 }
 
+/**
+  * Switch On the display.
+  * Instance:     LCD Instance.
+  * int32_t:      BSP status.
+  */
+int32_t LCD_DisplayOn(void)
+{
+    int32_t ret = BSP_ERROR_FEATURE_NOT_SUPPORTED;
+
+    if(LcdDrv->DisplayOn != NULL)
+    {
+        if(LcdDrv->DisplayOn(LcdCompObj) < 0)
+        {
+            ret = BSP_ERROR_COMPONENT_FAILURE;
+        }
+        else
+        {
+            ret = BSP_ERROR_NONE;
+        }
+    }
+
+    return ret;
+}
+
 /*------------------- static functions -------------------*/
 /* Initializes LCD low level.
   */
@@ -262,6 +285,8 @@ static int32_t LCD_IO_Init(void)
         R_ICU_ExternalIrqEnable(&LCD_external_irq11_ctrl);
     }
 
+    R_GPT_Open(&LCD_timer_ctrl, &LCD_timer_cfg);
+
     return ret;
 }
 
@@ -272,6 +297,7 @@ static int32_t LCD_IO_DeInit(void)
     int32_t ret = BSP_ERROR_NONE;
 
     ret = LCD_SPI_DeInit();
+    R_GPT_Close(&LCD_timer_ctrl);
 
     return ret;
 }
@@ -408,3 +434,44 @@ static int32_t LCD_IO_Delay(uint32_t Delay)
     return BSP_ERROR_NONE;
 }
 
+
+/**
+  * @brief HCI Transport Layer Low Level Interrupt Service Routine
+  * @param  None
+  * @retval None
+  */
+void LCD_TERisingCallback(void)
+{
+    LCD_SignalTearingEffectEvent(1, 0);
+}
+
+/**
+  * @brief HCI Transport Layer Low Level Interrupt Service Routine
+  * @param  None
+  * @retval None
+  */
+void LCD_TEFallingCallback(void)
+{
+    LCD_SignalTearingEffectEvent(0, 0);
+}
+
+/**
+  * @brief  Signal Transfer Event.
+  * @param  State:        Event value.
+  * @param  Line:         Line counter.
+  */
+__WEAK void LCD_SignalTearingEffectEvent(uint8_t State, uint16_t Line)
+{
+    /* Prevent unused argument(s) compilation warning */;
+    (void)Line;
+
+    /* This is the user's Callback to be implemented at the application level */
+    if(State)
+    {
+      /* TE event is done : de-allow display refresh */
+    }
+    else
+    {
+      /* TE event is received : allow display refresh */
+    }
+}
